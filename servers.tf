@@ -8,6 +8,14 @@ output "aws" {
   value = data.aws_ami.centos.image_id
 }
 
+variable "instance_type" {
+  default = "t3.micro"
+}
+
+output "instance_type" {
+  value = var.instance_type
+}
+
 resource "aws_instance" "frontend" {
   ami           = data.aws_ami.centos.image_id
   instance_type = "t3.micro"
