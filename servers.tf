@@ -10,8 +10,8 @@ data "aws_security_group" "allow_all" {
 
 
 /*variable "instance_type" {
-  default = "t3.micro"
-}*/
+  default = "t3.micro"*/
+
 
 variable "components" {
   default = {
@@ -24,7 +24,7 @@ variable "components" {
       name = "mongodb"
     }
     catalogue = {
-      instance_type = "t3.small"
+      instance_type = "t3.micro"
       name = "catalogue"
     }
   }
@@ -42,6 +42,17 @@ resource "aws_instance" "instance" {
     Name = each.value["name"]
   }
 }
+
+resource "aws_route53_record" "dnsrecords" {
+  for_each = var.components
+  zone_id = "Z04548223K1NBBTA1AB3D"
+  name    = "${each.value["name"]}-dev.rpadaladevops.online"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.instance[each.value["name"]].private_ip]
+}
+
+
 
 /*
 resource "aws_route53_record" "frontend" {
