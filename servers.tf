@@ -39,7 +39,7 @@ resource "aws_instance" "instance" {
   vpc_security_group_ids =[ data.aws_security_group.allow_all.id ]
 
   tags = {
-    name = each.value["name"]
+    Name = each.value["name"]
   }
 }
 
