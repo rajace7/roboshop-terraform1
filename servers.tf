@@ -9,24 +9,37 @@ data "aws_security_group" "allow_all" {
 }
 
 
-variable "instance_type" {
+/*variable "instance_type" {
   default = "t3.micro"
-}
+}*/
 
 variable "components" {
-  default = [ "frontend", "mongodb", "catalogue"]
+  default = {
+    frontend = {
+      instance_type = "t3.micro"
+      name = "frontend"
+    }
+    mongodb = {
+      instance_type = "t3.micro"
+      name = "mongodb"
+    }
+    catalogue = {
+      instance_type = "t3.small"
+      name = "catalogue"
+    }
+  }
+
 }
 
 
 resource "aws_instance" "instance" {
-  count = length(var.components)
+  for_each = var.components
   ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
+  instance_type = each.value["instance_type"]
   vpc_security_group_ids =[ data.aws_security_group.allow_all.id ]
 
   tags = {
-    Name = var.components[count.index]
+    name = each.value["name"]
   }
 }
 
