@@ -10,6 +10,26 @@ resource "aws_instance" "instance" {
   }
 }
 
+resource "null_resource" "provisioner" {
+  depends_on = ["aws_instance.instance", "aws_route53_record.dnsrecords"]
+  for_each = var.components
+  connection {
+    type     = "ssh"
+    user     = "centos"
+    password = DevOps321
+    host     = aws_instance.instance[each.value["name"]].private_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "rm -rf roboshop_shell1",
+      "git clone https://github.com/rajace7/roboshop_shell1.git",
+      "cd roboshop_shell1",
+      "sudo bash ${each.value["name"]}.sh  ${lookup(each.value,"password", dummy )}"
+    ]
+  }
+}
+
 resource "aws_route53_record" "dnsrecords" {
   for_each = var.components
   zone_id = "Z04548223K1NBBTA1AB3D"
