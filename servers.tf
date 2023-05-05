@@ -11,7 +11,7 @@ resource "aws_instance" "instance" {
 }
 
 resource "null_resource" "provisioner" {
-  depends_on = ["aws_instance.instance", "aws_route53_record.dnsrecords"]
+  depends_on = [aws_instance.instance, aws_route53_record.dnsrecords]
   for_each = var.components
   connection {
     type     = "ssh"
