@@ -4,9 +4,9 @@ components = {
     instance_type = "t3.micro"
     name          = "frontend"
   }
-  mongodb = {
+  mongod = {
     instance_type = "t3.micro"
-    name          = "mongodb"
+    name          = "mongod"
   }
   catalogue = {
     instance_type = "t3.micro"
