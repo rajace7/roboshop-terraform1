@@ -43,7 +43,7 @@ components = {
 
 }
 
-env = "dev1"
+env1 = "dev"
 
 
 
