@@ -16,7 +16,7 @@ resource "null_resource" "provisioner" {
   connection {
     type     = "ssh"
     user     = "centos"
-    password = DevOps321
+    password = "DevOps321"
     host     = aws_instance.instance[each.value["name"]].private_ip
   }
 
