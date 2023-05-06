@@ -5,7 +5,7 @@ resource "aws_instance" "instance" {
   vpc_security_group_ids =[ data.aws_security_group.allow_all.id ]
 
   tags = {
-    Name = var.components
+    Name = var.component_name
   }
 }
 
@@ -24,7 +24,7 @@ resource "null_resource" "provisioner" {
       "rm -rf roboshop_shell1",
       "git clone https://github.com/rajace7/roboshop_shell1.git",
       "cd roboshop_shell1",
-      "sudo bash ${var.components}.sh  ${var.password}"
+      "sudo bash ${var.component_name}.sh  ${var.password}"
     ]
   }
 }
@@ -32,7 +32,7 @@ resource "null_resource" "provisioner" {
 resource "aws_route53_record" "dnsrecords" {
 
   zone_id = "Z04548223K1NBBTA1AB3D"
-  name    = "${var.components}-dev.rpadaladevops.online"
+  name    = "${var.component_name}-dev.rpadaladevops.online"
   type    = "A"
   ttl     = 30
   records = [aws_instance.instance.private_ip]
