@@ -29,10 +29,7 @@ application_servers = {
     name          = "payment"
     password      = "roboshop123"
   }
-  dispatch = {
-    instance_type = "t3.micro"
-    name          = "dispatch"
-  }
+
 
 }
 
