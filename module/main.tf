@@ -5,7 +5,7 @@ resource "aws_instance" "instance" {
   vpc_security_group_ids =[ data.aws_security_group.allow_all.id ]
 
   tags = {
-    Name = var.component_name
+    Name = local.name
   }
 }
 
@@ -22,12 +22,7 @@ resource "null_resource" "provisioner" {
   }
 
   provisioner "remote-exec" {
-    inline = [
-      "rm -rf roboshop_shell1",
-      "git clone https://github.com/rajace7/roboshop_shell1.git",
-      "cd roboshop_shell1",
-      "sudo bash ${var.component_name}.sh  ${var.password}"
-    ]
+    inline = var.app_type == "db" ? local.db_commands : local.app_commands
   }
 }
 
