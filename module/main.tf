@@ -14,9 +14,9 @@ resource "null_resource" "provisioner" {
   //count = var.provisioner ? 1 : 0
 
   depends_on = [aws_instance.instance, aws_route53_record.dnsrecords]
-  triggers = {
+  /*triggers = {
     private_ip = aws_instance.instance.private_ip
-  }
+  }*/
 
   provisioner "remote-exec" {
 
