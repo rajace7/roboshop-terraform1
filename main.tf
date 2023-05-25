@@ -3,7 +3,5 @@ module "vpc" {
 
   for_each = var.vpc
   cidr_block = each.value["cidr_block"]
-  enable_dns_support = true
-  enable_dns_hostnames = true
 
 }
