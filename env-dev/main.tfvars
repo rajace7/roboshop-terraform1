@@ -28,7 +28,7 @@ vpc = {
 }
 
 env="dev"
-bastion_cidr     = ["172.31.11.111/32"]
+bastion_cidr     = ["172.31.11.6/32"]
 
 app = {
   frontend = {
