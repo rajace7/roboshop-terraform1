@@ -32,6 +32,7 @@ bastion_cidr     = ["172.31.11.6/32"]
 default_vpc_id   = "vpc-0482759e34575a8eb"
 default_vpc_cidr = "172.31.0.0/16"
 default_vpc_rtid = "rtb-0986c98c37c1a0ebb"
+kms_arn          = "arn:aws:kms:us-east-1:633788536644:key/dce90622-5a23-4f82-a639-be841f534702"
 
 app = {
   frontend = {
@@ -53,4 +54,15 @@ app = {
     min_size         = 2
   }
 
+}
+
+
+docdb = {
+  main = {
+    subnet_name    = "db"
+    allow_db_cidr  = "app"
+    engine_version = "4.0.0"
+    instance_count = 1
+    instance_class = "db.t3.medium"
+  }
 }
