@@ -34,27 +34,27 @@ default_vpc_cidr = "172.31.0.0/16"
 default_vpc_rtid = "rtb-0986c98c37c1a0ebb"
 kms_arn          = "arn:aws:kms:us-east-1:487992542253:key/16058d6a-d5b1-4ae3-bd08-5da099acd469"
 
-#app = {
-#  frontend = {
-#    name             = "frontend"
-#    instance_type    = "t3.small"
-#    subnet_name      = "web"
-#    allow_app_cidr   = "public"
-#    desired_capacity = 2
-#    max_size         = 10
-#    min_size         = 2
-#  }
-#  catalogue = {
-#    name             = "catalogue"
-#    instance_type    = "t3.small"
-#    subnet_name      = "app"
-#    allow_app_cidr   = "web"
-#    desired_capacity = 2
-#    max_size         = 10
-#    min_size         = 2
-#  }
-#
-#}
+app = {
+  frontend = {
+    name             = "frontend"
+    instance_type    = "t3.small"
+    subnet_name      = "web"
+    allow_app_cidr   = "public"
+    desired_capacity = 2
+    max_size         = 10
+    min_size         = 1
+  }
+  catalogue = {
+    name             = "catalogue"
+    instance_type    = "t3.small"
+    subnet_name      = "app"
+    allow_app_cidr   = "web"
+    desired_capacity = 2
+    max_size         = 10
+    min_size         = 1
+  }
+
+}
 
 
 docdb = {
