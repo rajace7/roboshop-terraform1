@@ -1,3 +1,13 @@
+env="dev"
+bastion_cidr     = ["172.31.11.6/32"]
+default_vpc_id   = "vpc-0482759e34575a8eb"
+default_vpc_cidr = "172.31.0.0/16"
+default_vpc_rtid = "rtb-0986c98c37c1a0ebb"
+kms_arn          = "arn:aws:kms:us-east-1:487992542253:key/16058d6a-d5b1-4ae3-bd08-5da099acd469"
+domain_name      = "rpadaladevops.online"
+domain_id        = "Z04548223K1NBBTA1AB3D"
+
+
 vpc = {
   main= {
       cidr_block= "10.0.0.0/16"
@@ -27,12 +37,6 @@ vpc = {
 
 }
 
-env="dev"
-bastion_cidr     = ["172.31.11.6/32"]
-default_vpc_id   = "vpc-0482759e34575a8eb"
-default_vpc_cidr = "172.31.0.0/16"
-default_vpc_rtid = "rtb-0986c98c37c1a0ebb"
-kms_arn          = "arn:aws:kms:us-east-1:487992542253:key/16058d6a-d5b1-4ae3-bd08-5da099acd469"
 
 app = {
   frontend = {
@@ -40,10 +44,13 @@ app = {
     instance_type    = "t3.small"
     subnet_name      = "web"
     allow_app_cidr   = "public"
-    desired_capacity = 2
+    desired_capacity = 1
     max_size         = 10
     min_size         = 1
     app_port         = 80
+    listener_priority = 1
+    lb_type           = "public"
+    dns_name          = "dev"
   }
   catalogue = {
     name             = "catalogue"
@@ -54,6 +61,8 @@ app = {
     max_size         = 10
     min_size         = 1
     app_port         = 8080
+    listener_priority = 1
+    lb_type           = "private"
   }
 
 }
