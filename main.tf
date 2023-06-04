@@ -86,7 +86,7 @@ module "elasticache" {
 }
 
 module "rabbitmq" {
-  source = "git::https://github.com/raghudevopsb72/tf-module-amazon-mq.git"
+  source = "git::https://github.com/rajace7/tf-module-amazonmq.git"
 
   for_each      = var.rabbitmq
   subnets       = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
@@ -100,4 +100,19 @@ module "rabbitmq" {
   kms_arn      = var.kms_arn
   bastion_cidr = var.bastion_cidr
   domain_id    = var.domain_id
+}
+
+module "alb" {
+  source = "git::https://github.com/rajace7/tf-module-alb.git"
+
+  for_each       = var.alb
+  subnets        = lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["subnet_name"], null), "subnet_ids", null)
+  allow_alb_cidr = each.value["name"] == "public" ? ["0.0.0.0/0"] : concat(lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), each.value["allow_alb_cidr"], null), "subnet_cidrs", null), lookup(lookup(lookup(lookup(module.vpc, "main", null), "subnets", null), "app", null), "subnet_cidrs", null))
+  name           = each.value["name"]
+  internal       = each.value["internal"]
+
+
+  tags   = local.tags
+  env    = var.env
+  vpc_id = local.vpc_id
 }
