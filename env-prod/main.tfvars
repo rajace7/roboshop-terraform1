@@ -1,4 +1,4 @@
-env="dev"
+env="prod"
 bastion_cidr     = ["172.31.11.6/32"]
 monitor_cidr     = ["172.31.6.132/32"]
 default_vpc_id   = "vpc-0482759e34575a8eb"
